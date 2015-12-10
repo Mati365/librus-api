@@ -1,5 +1,5 @@
 # librus-api
-Simple node.js Librus module
+Simple node.js Librus scraping API module
 
 ## Installation:
 ```
