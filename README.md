@@ -1,7 +1,12 @@
 # librus-api
 Simple node.js Librus module
 
-# Usage
+## Installation:
+```
+npm install librus-api
+```
+
+## Usage
 **Login and list mails in folder**
 ```javascript
 'use strict';
