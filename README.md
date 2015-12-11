@@ -54,6 +54,15 @@ client.authorize("login", "pass").then(function () {
    
   // Get event
   client.calendar.getEvent(4242342).then(data => {});
+  
+  // Get grades
+  client.info.getGrades().then(data => {});
+  
+  // Get grade
+  client.info.getGrade(23424234).then(data => {});
+  
+  // Get notifications
+  client.info.getNotifications().then(data => {});
 });
 
 ```
