@@ -1,7 +1,7 @@
+# librus-api
 [![npm](https://img.shields.io/npm/v/librus-api.svg?style=flat)](https://www.npmjs.com/package/librus-api)
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://opensource.org/licenses/MIT)
 
-# librus-api
 Simple node.js Librus scraping API module
 
 ## Installation:
