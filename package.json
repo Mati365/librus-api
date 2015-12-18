@@ -1,7 +1,8 @@
 {
   "name": "librus-api",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "Simple synergia.librus.pl site scraping API",
+  "private": true,
   "main": "lib/api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
