@@ -12,7 +12,7 @@ npm install librus-api
 ## Usage
 ```javascript
 'use strict';
-const Librus = require("./api/core.js");
+const Librus = require("librus-api");
 
 let client = new Librus();
 client.authorize("login", "pass").then(function () {
