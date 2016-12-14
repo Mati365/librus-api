@@ -1,6 +1,6 @@
 {
   "name": "librus-api",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Simple synergia.librus.pl site scraping API",
   "private": true,
   "main": "lib/api.js",
