@@ -38,7 +38,7 @@ client.authorize("login", "pass").then(function () {
   client.homework.listSubjects().then(data => {});
   
   // List subject homeworks, -1||undefined all
-  client.homework.listHomeworks(24374).then(list => {});
+  client.homework.listHomework(24374).then(list => {});
   
   // Download homework description
   client.homework.getHomework(257478).then(data => {});
