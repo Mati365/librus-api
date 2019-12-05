@@ -63,6 +63,9 @@ client.authorize("login", "pass").then(function () {
 
   // Get grade
   client.info.getGrade(23424234).then(data => {});
+  
+  // Get scoring grade
+  client.info.getPointGrade(234242234).then(data => {});
 
   // Get notifications
   client.info.getNotifications().then(data => {});
