@@ -67,6 +67,9 @@ client.authorize("login", "pass").then(function () {
   // Get scoring grade
   client.info.getPointGrade(234242234).then(data => {});
   
+  // Get name, surname and other account info
+  client.info.getAccountInfo();
+
   // Get lucky number
   client.info.getLuckyNumber().then(data => {});
 
