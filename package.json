@@ -18,7 +18,7 @@
   "author": "Mateusz Bagiński, Krzysztof Rzymkowski",
   "license": "MIT",
   "dependencies": {
-    "cheerio": "^0.22.0",
+    "cheerio": "^1.0.0-rc.12",
     "lodash": "^4.17.15",
     "request": "^2.34",
     "request-promise": "^4.2.2"
