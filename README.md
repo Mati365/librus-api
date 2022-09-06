@@ -34,6 +34,13 @@ client.authorize("login", "pass").then(function () {
   // Get message with id 2133726 in folder 6
   client.inbox.getMessage(6, 2133726).then(data => {});
 
+  // Get attachments from message with id 181186 in folder 5
+  client.inbox.getMessage(5, 181186).then(data => {
+    for (let f of data.files) {
+      client.inbox.getFile(f.path).then(response => response.pipe(fs.createWriteStream(f.name)))
+    }
+  });
+
   // List all subjects
   client.homework.listSubjects().then(data => {});
 
