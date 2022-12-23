@@ -1,92 +1,111 @@
 # librus-api
+
 [![npm](https://img.shields.io/npm/v/librus-api.svg?style=flat)](https://www.npmjs.com/package/librus-api)
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://opensource.org/licenses/MIT)
 
 Simple node.js Librus / Synergia scraping API module
 
 ## Installation:
+
 ```
 npm install librus-api
 ```
 
 ## Usage
+
 ```javascript
-'use strict';
+"use strict";
 const Librus = require("librus-api");
 
 let client = new Librus();
 client.authorize("login", "pass").then(function () {
   // Send message to User 648158
-  client.inbox.sendMessage(648158, "title", "body").then(() => { /** sucess */ }, () => { /** fail **/ });
+  client.inbox.sendMessage(648158, "title", "body").then(
+    () => {
+      /** sucess */
+    },
+    () => {
+      /** fail **/
+    }
+  );
 
   // Remove message with id 4534535
-  client.inbox.removeMessage(4534535).then(() => { /** sucess */ }, () => { /** fail **/ });
+  client.inbox.removeMessage(4534535).then(
+    () => {
+      /** sucess */
+    },
+    () => {
+      /** fail **/
+    }
+  );
 
   // List receivers
-  client.inbox.listReceivers("nauczyciel").then(data => {});
+  client.inbox.listReceivers("nauczyciel").then((data) => {});
 
   // List announcements
-  client.inbox.listAnnouncements().then(data => {});
+  client.inbox.listAnnouncements().then((data) => {});
 
   // List all e-mails in folder(5) in page(2)
-  client.inbox.listInbox(5).then(data => {});
+  client.inbox.listInbox(5).then((data) => {});
 
   // Get message with id 2133726 in folder 6
-  client.inbox.getMessage(6, 2133726).then(data => {});
+  client.inbox.getMessage(6, 2133726).then((data) => {});
 
   // Get attachments from message with id 181186 in folder 5
-  client.inbox.getMessage(5, 181186).then(data => {
+  client.inbox.getMessage(5, 181186).then((data) => {
     for (let f of data.files) {
-      client.inbox.getFile(f.path).then(response => response.pipe(fs.createWriteStream(f.name)))
+      client.inbox
+        .getFile(f.path)
+        .then((response) => response.pipe(fs.createWriteStream(f.name)));
     }
   });
 
   // List all subjects
-  client.homework.listSubjects().then(data => {});
+  client.homework.listSubjects().then((data) => {});
 
   // List subject homeworks, -1||undefined all
-  client.homework.listHomework(24374).then(list => {});
+  client.homework.listHomework(24374).then((list) => {});
 
   // Download homework description
-  client.homework.getHomework(257478).then(data => {});
+  client.homework.getHomework(257478).then((data) => {});
 
   // Get all absences
-  client.absence.getAbsences().then(data => {});
+  client.absence.getAbsences().then((data) => {});
 
   // Get info about absence
-  client.absence.getAbsence(5068489).then(data => {});
+  client.absence.getAbsence(5068489).then((data) => {});
 
   // Get timetable
-  client.calendar.getTimetable().then(data => {});
+  client.calendar.getTimetable().then((data) => {});
 
   // Get calendar
-  client.calendar.getCalendar().then(data => {});
+  client.calendar.getCalendar().then((data) => {});
 
   // Get event
-  client.calendar.getEvent(4242342).then(data => {});
+  client.calendar.getEvent(4242342).then((data) => {});
 
   // Get grades
-  client.info.getGrades().then(data => {});
+  client.info.getGrades().then((data) => {});
 
   // Get grade
-  client.info.getGrade(23424234).then(data => {});
-  
+  client.info.getGrade(23424234).then((data) => {});
+
   // Get scoring grade
-  client.info.getPointGrade(234242234).then(data => {});
-  
+  client.info.getPointGrade(234242234).then((data) => {});
+
   // Get name, surname and other account info
   client.info.getAccountInfo();
 
   // Get lucky number
-  client.info.getLuckyNumber().then(data => {});
+  client.info.getLuckyNumber().then((data) => {});
 
   // Get notifications
-  client.info.getNotifications().then(data => {});
+  client.info.getNotifications().then((data) => {});
 });
-
 ```
 
 ## License
+
 The MIT License (MIT)
 
 Copyright (c) 2020/2021 Mateusz Bagiński
