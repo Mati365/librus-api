@@ -3,9 +3,9 @@
 [![npm](https://img.shields.io/npm/v/librus-api.svg?style=flat)](https://www.npmjs.com/package/librus-api)
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://opensource.org/licenses/MIT)
 
-Simple node.js Librus / Synergia scraping API module
+Otwartoźródłowy klient HTTP parsujący odlowiedzi HTML serwera dziennika elektronicznego Librus / Synergia. Paczka nie jest oficjalnym produktem Synergia.  
 
-## Installation:
+## Instalacja
 
 ```
 npm install librus-api
@@ -104,7 +104,7 @@ client.authorize("login", "pass").then(function () {
 });
 ```
 
-## License
+## Licencja
 
 The MIT License (MIT)
 
