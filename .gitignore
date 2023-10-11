@@ -4,3 +4,4 @@ node_modules/
 !.prettierrc
 *.log
 test.js
+tempdata.json
