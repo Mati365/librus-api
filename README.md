@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/librus-api.svg?style=flat)](https://www.npmjs.com/package/librus-api)
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://opensource.org/licenses/MIT)
 
-Otwartoźródłowy klient HTTP parsujący odlowiedzi HTML serwera dziennika elektronicznego Librus / Synergia. Paczka nie jest oficjalnym produktem Synergia.  
+Otwartoźródłowy klient HTTP parsujący odpowiedzi HTML serwera dziennika elektronicznego Librus / Synergia. Paczka nie jest oficjalnym produktem Synergia.  
 
 ## Instalacja
 
