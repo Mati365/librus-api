@@ -670,9 +670,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"safer-buffer@npm:^2.0.2":
+  version: 2.1.2
+  resolution: "safer-buffer@npm:2.1.2"
+  checksum: cab8f25ae6f1434abee8d80023d7e72b598cf1327164ddab31003c51215526801e40b66c5e65d658a0af1e9d6478cadcb4c745f4bd6751f97d8644786c0978b0
+  languageName: node
+  linkType: hard
+
 "sshpk@npm:^1.7.0":
-  version: 1.13.1
-  resolution: "sshpk@npm:1.13.1"
+  version: 1.17.0
+  resolution: "sshpk@npm:1.17.0"
   dependencies:
     asn1: ~0.2.3
     assert-plus: ^1.0.0
@@ -681,21 +688,13 @@ __metadata:
     ecc-jsbn: ~0.1.1
     getpass: ^0.1.1
     jsbn: ~0.1.0
+    safer-buffer: ^2.0.2
     tweetnacl: ~0.14.0
-  dependenciesMeta:
-    bcrypt-pbkdf:
-      optional: true
-    ecc-jsbn:
-      optional: true
-    jsbn:
-      optional: true
-    tweetnacl:
-      optional: true
   bin:
     sshpk-conv: bin/sshpk-conv
     sshpk-sign: bin/sshpk-sign
     sshpk-verify: bin/sshpk-verify
-  checksum: 8f8136f428428c37352f1f643eb5f932985048002560ad4fc2293b36f73474ec5ee1dd1d0a662d3d5d1411f093d46a16c5c3b258fde9e9c384436fc5b517b887
+  checksum: ba109f65c8e6c35133b8e6ed5576abeff8aa8d614824b7275ec3ca308f081fef483607c28d97780c1e235818b0f93ed8c8b56d0a5968d5a23fd6af57718c7597
   languageName: node
   linkType: hard
 
