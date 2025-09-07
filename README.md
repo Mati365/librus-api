@@ -1,116 +1,78 @@
 # librus-api
 
-[![npm](https://img.shields.io/npm/v/librus-api.svg?style=flat)](https://www.npmjs.com/package/librus-api)
+[![npm](https://img.shields.io/npm/v/librus-api.svg?style=flat)](https://www.npmjs.com/package/librus-api)  
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://opensource.org/licenses/MIT)
 
-Otwartoźródłowy klient HTTP parsujący odpowiedzi HTML serwera dziennika elektronicznego Librus / Synergia. Paczka nie jest oficjalnym produktem Synergia.  
+Otwartoźródłowy klient HTTP do parsowania odpowiedzi HTML serwera dziennika elektronicznego **Librus / Synergia**.  
+Nie jest to oficjalny produkt Synergia.
+
+---
 
 ## Instalacja
 
-```
+```bash
 npm install librus-api
 ```
 
-## Usage
+---
+
+## Szybki start
 
 ```javascript
-"use strict";
 const Librus = require("librus-api");
+const fs = require("fs");
 
-let client = new Librus();
-client.authorize("login", "pass").then(function () {
-  // Send message to User 648158
-  client.inbox.sendMessage(648158, "title", "body").then(
-    () => {
-      /** sucess */
-    },
-    () => {
-      /** fail **/
-    }
-  );
+const client = new Librus();
 
-  // Remove message with id 4534535
-  client.inbox.removeMessage(4534535).then(
-    () => {
-      /** sucess */
-    },
-    () => {
-      /** fail **/
-    }
-  );
+client.authorize("login", "pass").then(() => {
+  // Wyslij wiadomosc
+  client.inbox.sendMessage(648158, "tytul", "tresc");
 
-  // List receivers
-  client.inbox.listReceivers("nauczyciel").then((data) => {});
+  // Pobierz wszystkie przedmioty
+  client.homework.listSubjects().then(console.log);
 
-  // List announcements
-  client.inbox.listAnnouncements().then((data) => {});
-
-  // List all e-mails in folder(5) in page(2)
-  client.inbox.listInbox(5).then((data) => {});
-
-  // Get message with id 2133726 in folder 6
-  client.inbox.getMessage(6, 2133726).then((data) => {});
-
-  // Get attachments from message with id 181186 in folder 5
-  client.inbox.getMessage(5, 181186).then((data) => {
-    for (let f of data.files) {
-      client.inbox
-        .getFile(f.path)
-        .then((response) => response.pipe(fs.createWriteStream(f.name)));
-    }
-  });
-
-  // List all subjects
-  client.homework.listSubjects().then((data) => {});
-
-  // List subject homeworks, -1||undefined all
-  client.homework.listHomework(24374).then((list) => {});
-
-  // Download homework description
-  client.homework.getHomework(257478).then((data) => {});
-
-  // Get all absences
-  client.absence.getAbsences().then((data) => {});
-
-  // Get info about absence
-  client.absence.getAbsence(5068489).then((data) => {});
-
-  // Get timetable
-  client.calendar.getTimetable().then((data) => {});
-
-  // Get calendar
-  client.calendar.getCalendar().then((data) => {});
-
-  // Get event
-  client.calendar.getEvent(4242342).then((data) => {});
-
-  // Get grades
-  client.info.getGrades().then((data) => {});
-
-  // Get grade
-  client.info.getGrade(23424234).then((data) => {});
-
-  // Get scoring grade
-  client.info.getPointGrade(234242234).then((data) => {});
-
-  // Get name, surname and other account info
-  client.info.getAccountInfo();
-
-  // Get lucky number
-  client.info.getLuckyNumber().then((data) => {});
-
-  // Get notifications
-  client.info.getNotifications().then((data) => {});
+  // Pobierz oceny
+  client.info.getGrades().then(console.log);
 });
 ```
 
+---
+
+## Funkcje
+
+### Inbox
+- `sendMessage(userId, title, body)` – wysyłanie wiadomości  
+- `removeMessage(messageId)` – usuwanie wiadomości  
+- `listReceivers(query)` – lista odbiorców  
+- `listAnnouncements()` – ogłoszenia  
+- `listInbox(folderId, page?)` – lista e-maili  
+- `getMessage(folderId, messageId)` – pobranie wiadomości wraz z załącznikami
+
+### Homework
+- `listSubjects()` – lista przedmiotów  
+- `listHomework(subjectId)` – lista prac domowych  
+- `getHomework(homeworkId)` – szczegóły pracy domowej
+
+### Absence
+- `getAbsences()` – wszystkie nieobecności  
+- `getAbsence(absenceId)` – szczegóły nieobecności
+
+### Calendar
+- `getTimetable()` – plan lekcji  
+- `getCalendar()` – kalendarz  
+- `getEvent(eventId)` – szczegóły wydarzenia
+
+### Info
+- `getGrades()` – wszystkie oceny  
+- `getGrade(gradeId)` – szczegóły oceny  
+- `getPointGrade(pointGradeId)` – ocena punktowa  
+- `getAccountInfo()` – dane konta  
+- `getLuckyNumber()` – szczęśliwy numer  
+- `getNotifications()` – powiadomienia
+
+---
+
 ## Licencja
 
-The MIT License (MIT)
-
-Copyright (c) 2025 Mateusz Bagiński
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+MIT © 2025 Mateusz Bagiński  
+[Pełny tekst licencji](http://opensource.org/licenses/MIT)
