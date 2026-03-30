@@ -5,7 +5,7 @@
 
 Otwartoźródłowy klient HTTP parsujący odpowiedzi HTML serwera dziennika elektronicznego Librus / Synergia. 
 
-## ⚠️ WAŻNE OSTRZEŻENIE
+**⚠️ WAŻNE OSTRZEŻENIE**
 
 - Ta biblioteka **nie jest oficjalnym produktem** firmy Librus / Synergia i nie jest z nimi powiązana w żaden sposób.
 - Jest to nieoficjalny, reverse-engineered klient HTTP działający jak zwykła przeglądarka.
