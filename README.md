@@ -3,7 +3,17 @@
 [![npm](https://img.shields.io/npm/v/librus-api.svg?style=flat)](https://www.npmjs.com/package/librus-api)
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://opensource.org/licenses/MIT)
 
-Otwartoźródłowy klient HTTP parsujący odpowiedzi HTML serwera dziennika elektronicznego Librus / Synergia. Paczka nie jest oficjalnym produktem Synergia.  
+Otwartoźródłowy klient HTTP parsujący odpowiedzi HTML serwera dziennika elektronicznego Librus / Synergia. 
+
+## ⚠️ WAŻNE OSTRZEŻENIE
+
+- Ta biblioteka **nie jest oficjalnym produktem** firmy Librus / Synergia i nie jest z nimi powiązana w żaden sposób.
+- Jest to nieoficjalny, reverse-engineered klient HTTP działający jak zwykła przeglądarka.
+- Korzystanie z niej może być niezgodne z [Regulaminem Synergia](https://synergia.librus.pl/regulamin) (w szczególności zakazem systematycznego pobierania danych).
+- Biblioteka jest przeznaczona **wyłącznie do użytku prywatnego i edukacyjnego** przez pojedynczego użytkownika na swoim koncie.
+- **Nie używaj jej do automatycznego scrapingu na dużą skalę**, botów, monitoringu klasowego ani komercyjnie.
+- Autor nie ponosi żadnej odpowiedzialności za zablokowanie konta, utratę danych ani jakiekolwiek konsekwencje.
+- Używaj na własne ryzyko i z poszanowaniem limitów serwerów Librusa.
 
 ## Instalacja
 
