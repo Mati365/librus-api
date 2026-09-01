@@ -50,7 +50,9 @@ client.authorize("login", "pass").then(function () {
   );
 
   // List receivers
-  client.inbox.listReceivers("nauczyciel").then((data) => {});
+  client.inbox.listReceivers().then((receiversByType) => {
+    const teachers = receiversByType.nauczyciel;
+  });
 
   // List announcements
   client.inbox.listAnnouncements().then((data) => {});

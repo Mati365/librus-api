@@ -4,7 +4,8 @@
   "description": "Simple synergia.librus.pl site scraping API",
   "main": "lib/api.js",
   "scripts": {
-    "pretty": "yarn prettier --write ."
+    "pretty": "yarn prettier --write .",
+    "test": "node --test"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
     "axios": "^1.12.2",
     "axios-cookiejar-support": "^6.0.4",
     "cheerio": "^1.1.2",
+    "form-data": "^4.0.5",
     "lodash": "^4.17.21",
     "tough-cookie": "^6.0.0"
   },
