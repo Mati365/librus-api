@@ -4,7 +4,8 @@
   "description": "Simple synergia.librus.pl site scraping API",
   "main": "lib/api.js",
   "scripts": {
-    "pretty": "yarn prettier --write ."
+    "pretty": "yarn prettier --write .",
+    "test": "node --test test/*.test.js"
   },
   "repository": {
     "type": "git",
