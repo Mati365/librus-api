@@ -1,0 +1,24 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: app/backend/Dockerfile
+    environment:
+      - ACCOUNTS_ENC_KEY
+      - DB_PATH=/data/accounts.db
+    volumes:
+      - data:/data
+    ports:
+      - "127.0.0.1:3001:3001"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: app/frontend/Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  data:
