@@ -1,0 +1,14 @@
+{
+  "name": "librus-timetable-backend",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "better-sqlite3": "^12.0.0"
+  }
+}
