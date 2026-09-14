@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { addAccount, Account } from "../api";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Alert, AlertDescription } from "./ui/alert";
 
 export default function AddAccountForm({ onAdded }: { onAdded: (account: Account) => void }) {
   const [label, setLabel] = useState("");
@@ -26,34 +30,33 @@ export default function AddAccountForm({ onAdded }: { onAdded: (account: Account
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>
-          Etykieta
-          <input value={label} onChange={(e) => setLabel(e.target.value)} required />
-        </label>
+    <form onSubmit={handleSubmit} className="flex max-w-sm flex-col gap-3">
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor="account-label">Etykieta</Label>
+        <Input id="account-label" value={label} onChange={(e) => setLabel(e.target.value)} required />
       </div>
-      <div>
-        <label>
-          Login Synergia
-          <input value={login} onChange={(e) => setLogin(e.target.value)} required />
-        </label>
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor="account-login">Login Synergia</Label>
+        <Input id="account-login" value={login} onChange={(e) => setLogin(e.target.value)} required />
       </div>
-      <div>
-        <label>
-          Hasło Synergia
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor="account-password">Hasło Synergia</Label>
+        <Input
+          id="account-password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
       </div>
-      {error && <p role="alert">{error}</p>}
-      <button type="submit" disabled={submitting}>
+      {error && (
+        <Alert variant="destructive">
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
+      <Button type="submit" disabled={submitting}>
         {submitting ? "Dodawanie…" : "Dodaj konto"}
-      </button>
+      </Button>
     </form>
   );
 }

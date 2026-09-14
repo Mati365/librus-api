@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Account, deleteAccount } from "../api";
 import AddAccountForm from "./AddAccountForm";
+import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
+import { Button } from "./ui/button";
 
 export default function AccountsList({
   accounts,
@@ -26,17 +28,23 @@ export default function AccountsList({
   }
 
   return (
-    <section>
-      <div className="tile-grid">
+    <section className="flex flex-col gap-4">
+      <div className="flex flex-wrap gap-3">
         {accounts.map((account) => (
-          <button key={account.id} className="tile" onClick={() => onSelect(account)}>
-            {account.label}
-            <div>
-              <a href="#" onClick={(e) => handleDelete(e, account.id)}>
+          <Card
+            key={account.id}
+            className="w-48 cursor-pointer transition-colors hover:bg-muted/50"
+            onClick={() => onSelect(account)}
+          >
+            <CardHeader>
+              <CardTitle>{account.label}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Button variant="ghost" size="sm" onClick={(e) => handleDelete(e, account.id)}>
                 Usuń
-              </a>
-            </div>
-          </button>
+              </Button>
+            </CardContent>
+          </Card>
         ))}
       </div>
 
@@ -48,7 +56,9 @@ export default function AccountsList({
           }}
         />
       ) : (
-        <button onClick={() => setShowForm(true)}>Dodaj konto</button>
+        <Button onClick={() => setShowForm(true)} className="self-start">
+          Dodaj konto
+        </Button>
       )}
     </section>
   );

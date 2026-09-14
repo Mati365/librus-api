@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Account, listAccounts } from "./api";
 import AccountsList from "./components/AccountsList";
 import TimetableView from "./components/TimetableView";
+import { Alert, AlertDescription } from "./components/ui/alert";
 
 export default function App() {
   const [accounts, setAccounts] = useState<Account[]>([]);
@@ -16,12 +17,16 @@ export default function App() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <p>Ładowanie…</p>;
+  if (loading) return <p className="text-sm text-muted-foreground">Ładowanie…</p>;
 
   return (
-    <main>
-      <h1>Plan lekcji Librus</h1>
-      {error && <p role="alert">{error}</p>}
+    <main className="flex flex-col gap-4">
+      <h1 className="font-heading text-2xl font-medium">Plan lekcji Librus</h1>
+      {error && (
+        <Alert variant="destructive">
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
       {selected ? (
         <TimetableView account={selected} onBack={() => setSelected(null)} />
       ) : (

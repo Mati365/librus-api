@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { Account, getTimetable, Timetable } from "../api";
+import { Button } from "./ui/button";
+import { Alert, AlertDescription } from "./ui/alert";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "./ui/table";
 
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 const DAY_LABELS: Record<string, string> = {
@@ -45,55 +48,65 @@ export default function TimetableView({ account, onBack }: { account: Account; o
   }, [account.id, weekOffset]);
 
   return (
-    <section>
-      <button onClick={onBack}>← Konta</button>
-      <h2>{account.label}</h2>
-      <div>
-        <button onClick={() => setWeekOffset((w) => w - 1)}>← Poprzedni tydzień</button>
-        <span>
+    <section className="flex flex-col gap-4">
+      <Button variant="ghost" size="sm" onClick={onBack} className="self-start">
+        ← Konta
+      </Button>
+      <h2 className="text-lg font-heading font-medium">{account.label}</h2>
+      <div className="flex items-center gap-3">
+        <Button variant="outline" size="sm" onClick={() => setWeekOffset((w) => w - 1)}>
+          ← Poprzedni tydzień
+        </Button>
+        <span className="text-sm text-muted-foreground">
           {formatDate(monday)} – {formatDate(sunday)}
         </span>
-        <button onClick={() => setWeekOffset((w) => w + 1)}>Następny tydzień →</button>
+        <Button variant="outline" size="sm" onClick={() => setWeekOffset((w) => w + 1)}>
+          Następny tydzień →
+        </Button>
       </div>
 
-      {error && <p role="alert">{error}</p>}
-      {!error && !timetable && <p>Ładowanie…</p>}
+      {error && (
+        <Alert variant="destructive">
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
+      {!error && !timetable && <p className="text-sm text-muted-foreground">Ładowanie…</p>}
 
       {timetable && (
-        <table>
-          <thead>
-            <tr>
-              <th>Godzina</th>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Godzina</TableHead>
               {DAYS.map((day) => (
-                <th key={day}>{DAY_LABELS[day]}</th>
+                <TableHead key={day}>{DAY_LABELS[day]}</TableHead>
               ))}
-            </tr>
-          </thead>
-          <tbody>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {timetable.hours.map((hour, hourIndex) => (
-              <tr key={hour + hourIndex}>
-                <td>{hour}</td>
+              <TableRow key={hour + hourIndex}>
+                <TableCell>{hour}</TableCell>
                 {DAYS.map((day) => {
                   const lesson = timetable.table[day]?.[hourIndex];
                   return (
-                    <td key={day}>
+                    <TableCell key={day}>
                       {lesson ? (
                         <>
                           <div>{lesson.subject}</div>
-                          <div>
+                          <div className="text-muted-foreground">
                             {lesson.teacher} {lesson.room}
                           </div>
                         </>
                       ) : (
                         ""
                       )}
-                    </td>
+                    </TableCell>
                   );
                 })}
-              </tr>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       )}
     </section>
   );
