@@ -33,6 +33,8 @@ test("withSession re-logs in and retries once when isExpired reports staleness",
     librusFactory: () => client,
   });
 
+  await manager.withSession(1, async () => "warm-up");
+
   let callCount = 0;
   const result = await manager.withSession(
     1,
