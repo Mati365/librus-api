@@ -2,6 +2,8 @@ node_modules/
 .*
 !.gitignore
 !.prettierrc
+!.env.example
 *.log
 test.js
 librus-api-*.tgz
+dist/
