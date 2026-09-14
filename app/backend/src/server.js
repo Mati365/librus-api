@@ -4,6 +4,7 @@ const { getEncryptionKey, encryptPassword, decryptPassword } = require("./crypto
 const { createDb, makeAccountsStore } = require("./db.js");
 const { createSessionManager } = require("./librusSessions.js");
 const { createAccountsRouter } = require("./routes/accounts.js");
+const { createTimetableRouter } = require("./routes/timetable.js");
 
 function createApp({
   dbPath = process.env.DB_PATH || "/data/accounts.db",
@@ -28,6 +29,8 @@ function createApp({
     "/api/accounts",
     createAccountsRouter({ accountsStore, encryptPassword, sessionManager, librusFactory })
   );
+
+  app.use("/api/accounts", createTimetableRouter({ sessionManager }));
 
   return app;
 }
