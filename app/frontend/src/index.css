@@ -1,0 +1,39 @@
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 1.5rem;
+  max-width: 960px;
+  margin-inline: auto;
+}
+
+.tile-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.tile {
+  border: 1px solid #8884;
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  background: none;
+  font: inherit;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid #8884;
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+  vertical-align: top;
+}
