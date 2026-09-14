@@ -3,6 +3,7 @@ import { Account, deleteAccount, getTimetable, Timetable } from "../api";
 import { Button } from "./ui/button";
 import { Alert, AlertDescription } from "./ui/alert";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "./ui/table";
+import { Card, CardContent } from "./ui/card";
 
 // Saturday and Sunday are always school-free days in Librus timetables, so they're
 // omitted from the grid entirely rather than shown as permanently empty columns.
@@ -90,40 +91,44 @@ export default function TimetableView({
       {!error && !timetable && <p className="text-sm text-muted-foreground">Ładowanie…</p>}
 
       {timetable && (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Godzina</TableHead>
-              {DAYS.map((day) => (
-                <TableHead key={day}>{DAY_LABELS[day]}</TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {timetable.hours.map((hour, hourIndex) => (
-              <TableRow key={hour + hourIndex}>
-                <TableCell>{hour}</TableCell>
-                {DAYS.map((day) => {
-                  const lesson = timetable.table[day]?.[hourIndex];
-                  return (
-                    <TableCell key={day}>
-                      {lesson ? (
-                        <>
-                          <div>{lesson.subject}</div>
-                          <div className="text-muted-foreground">
-                            {lesson.teacher} {lesson.room}
-                          </div>
-                        </>
-                      ) : (
-                        ""
-                      )}
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        <Card>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Godzina</TableHead>
+                  {DAYS.map((day) => (
+                    <TableHead key={day}>{DAY_LABELS[day]}</TableHead>
+                  ))}
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {timetable.hours.map((hour, hourIndex) => (
+                  <TableRow key={hour + hourIndex}>
+                    <TableCell>{hour}</TableCell>
+                    {DAYS.map((day) => {
+                      const lesson = timetable.table[day]?.[hourIndex];
+                      return (
+                        <TableCell key={day}>
+                          {lesson ? (
+                            <>
+                              <div>{lesson.subject}</div>
+                              <div className="text-muted-foreground">
+                                {lesson.teacher} {lesson.room}
+                              </div>
+                            </>
+                          ) : (
+                            ""
+                          )}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
       )}
     </section>
   );
