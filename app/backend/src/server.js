@@ -6,6 +6,10 @@ const { createSessionManager } = require("./librusSessions.js");
 const { createAccountsRouter } = require("./routes/accounts.js");
 const { createTimetableRouter } = require("./routes/timetable.js");
 
+process.on("unhandledRejection", (err) => {
+  console.error("Unhandled rejection:", err);
+});
+
 function createApp({
   dbPath = process.env.DB_PATH || "/data/accounts.db",
   librusFactory = () => new (require("../../../lib/api.js"))(),
@@ -31,6 +35,12 @@ function createApp({
   );
 
   app.use("/api/accounts", createTimetableRouter({ sessionManager }));
+
+  // eslint-disable-next-line no-unused-vars
+  app.use((err, req, res, next) => {
+    console.error("Unhandled error in request handler:", err.message);
+    res.status(500).json({ error: "Internal server error" });
+  });
 
   return app;
 }

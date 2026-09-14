@@ -17,8 +17,12 @@ export default function AccountsList({
 
   async function handleDelete(e: React.MouseEvent, id: number) {
     e.stopPropagation();
-    await deleteAccount(id);
-    onDeleted(id);
+    try {
+      await deleteAccount(id);
+      onDeleted(id);
+    } catch (err) {
+      window.alert(err instanceof Error ? err.message : "Nie udało się usunąć konta");
+    }
   }
 
   return (

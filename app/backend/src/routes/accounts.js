@@ -17,12 +17,19 @@ function createAccountsRouter({ accountsStore, encryptPassword, sessionManager, 
     const client = librusFactory();
     try {
       await client.authorize(login, password);
-    } catch {
+    } catch (error) {
+      // Log only error.message — the raw error can carry the plaintext Librus password in error.config.data
+      console.error("librus auth failed for account %s: %s", login, error.message);
       return res.status(401).json({ error: "Invalid Librus credentials" });
     }
 
-    const id = accountsStore.insert(label, login, encryptPassword(password));
-    res.status(201).json({ id, label, login });
+    try {
+      const id = accountsStore.insert(label, login, encryptPassword(password));
+      res.status(201).json({ id, label, login });
+    } catch (error) {
+      console.error("failed to save account %s: %s", login, error.message);
+      res.status(500).json({ error: "Failed to save account" });
+    }
   });
 
   router.delete("/:id", (req, res) => {
