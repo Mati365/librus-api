@@ -4,15 +4,15 @@ import { Button } from "./ui/button";
 import { Alert, AlertDescription } from "./ui/alert";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "./ui/table";
 
-const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+// Saturday and Sunday are always school-free days in Librus timetables, so they're
+// omitted from the grid entirely rather than shown as permanently empty columns.
+const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 const DAY_LABELS: Record<string, string> = {
   Monday: "Poniedziałek",
   Tuesday: "Wtorek",
   Wednesday: "Środa",
   Thursday: "Czwartek",
   Friday: "Piątek",
-  Saturday: "Sobota",
-  Sunday: "Niedziela",
 };
 
 function mondayOf(date: Date): Date {
