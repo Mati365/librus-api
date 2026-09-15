@@ -57,38 +57,49 @@ export default function TodayCard({
     : [];
 
   return (
-    <Card
-      className="flex cursor-pointer flex-col transition-colors hover:bg-muted/50"
-      onClick={() => setOpen(true)}
-    >
-      <CardHeader>
-        <CardTitle>{account.label}</CardTitle>
-        <span className="text-sm text-muted-foreground">
-          {isToday ? `Dziś — ${DAY_LABELS[key]}` : `Najbliższy dzień nauki — ${DAY_LABELS[key]}`}
-        </span>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-2">
-        {error && (
-          <Alert variant="destructive">
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
-        )}
-        {!error && !timetable && <p className="text-sm text-muted-foreground">Ładowanie…</p>}
-        {!error && timetable && lessons.length === 0 && (
-          <p className="text-sm text-muted-foreground">Brak lekcji.</p>
-        )}
-        {lessons.map(({ hour, lesson }) => (
-          <div key={hour} className="flex gap-3 text-sm">
-            <span className="w-28 shrink-0 text-muted-foreground">{hour}</span>
-            <span className="flex flex-col">
-              <span>{lesson!.subject}</span>
-              <span className="text-muted-foreground">
-                {lesson!.teacher} {lesson!.room}
+    <>
+      <Card
+        role="button"
+        tabIndex={0}
+        aria-label={`Plan lekcji — ${account.label}`}
+        className="flex cursor-pointer flex-col transition-colors hover:bg-muted/50"
+        onClick={() => setOpen(true)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            setOpen(true);
+          }
+        }}
+      >
+        <CardHeader>
+          <CardTitle>{account.label}</CardTitle>
+          <span className="text-sm text-muted-foreground">
+            {isToday ? `Dziś — ${DAY_LABELS[key]}` : `Najbliższy dzień nauki — ${DAY_LABELS[key]}`}
+          </span>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-2">
+          {error && (
+            <Alert variant="destructive">
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+          {!error && !timetable && <p className="text-sm text-muted-foreground">Ładowanie…</p>}
+          {!error && timetable && lessons.length === 0 && (
+            <p className="text-sm text-muted-foreground">Brak lekcji.</p>
+          )}
+          {lessons.map(({ hour, lesson }) => (
+            <div key={hour} className="flex gap-3 text-sm">
+              <span className="w-28 shrink-0 text-muted-foreground">{hour}</span>
+              <span className="flex flex-col">
+                <span>{lesson!.subject}</span>
+                <span className="text-muted-foreground">
+                  {lesson!.teacher} {lesson!.room}
+                </span>
               </span>
-            </span>
-          </div>
-        ))}
-      </CardContent>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
       <TimetableDialog
         account={account}
         initialTimetable={timetable}
@@ -96,6 +107,6 @@ export default function TodayCard({
         onOpenChange={setOpen}
         onDeleted={onDeleted}
       />
-    </Card>
+    </>
   );
 }
