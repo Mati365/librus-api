@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Account, getTimetable, Timetable } from "../api";
 import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
 import { Alert, AlertDescription } from "./ui/alert";
+import TimetableDialog from "./TimetableDialog";
 
 const DAY_KEYS = [
   "Sunday",
@@ -28,9 +29,16 @@ export function schoolDayFor(now: Date): { key: string; isToday: boolean } {
   return { key: DAY_KEYS[day], isToday: true };
 }
 
-export default function TodayCard({ account }: { account: Account }) {
+export default function TodayCard({
+  account,
+  onDeleted,
+}: {
+  account: Account;
+  onDeleted: (id: number) => void;
+}) {
   const [timetable, setTimetable] = useState<Timetable | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setError(null);
@@ -49,7 +57,10 @@ export default function TodayCard({ account }: { account: Account }) {
     : [];
 
   return (
-    <Card className="flex flex-col">
+    <Card
+      className="flex cursor-pointer flex-col transition-colors hover:bg-muted/50"
+      onClick={() => setOpen(true)}
+    >
       <CardHeader>
         <CardTitle>{account.label}</CardTitle>
         <span className="text-sm text-muted-foreground">
@@ -78,6 +89,13 @@ export default function TodayCard({ account }: { account: Account }) {
           </div>
         ))}
       </CardContent>
+      <TimetableDialog
+        account={account}
+        initialTimetable={timetable}
+        open={open}
+        onOpenChange={setOpen}
+        onDeleted={onDeleted}
+      />
     </Card>
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Account, deleteAccount, getTimetable, Timetable } from "../api";
+import { Account, getTimetable, Timetable } from "../api";
 import { Button } from "./ui/button";
 import { Alert, AlertDescription } from "./ui/alert";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "./ui/table";
@@ -31,13 +31,13 @@ function formatDate(date: Date): string {
 
 export default function TimetableView({
   account,
-  onDeleted,
+  initialTimetable,
 }: {
   account: Account;
-  onDeleted: (id: number) => void;
+  initialTimetable: Timetable | null;
 }) {
   const [weekOffset, setWeekOffset] = useState(0);
-  const [timetable, setTimetable] = useState<Timetable | null>(null);
+  const [timetable, setTimetable] = useState<Timetable | null>(initialTimetable);
   const [error, setError] = useState<string | null>(null);
 
   const monday = mondayOf(new Date());
@@ -46,6 +46,11 @@ export default function TimetableView({
   sunday.setDate(monday.getDate() + 6);
 
   useEffect(() => {
+    if (weekOffset === 0 && initialTimetable) {
+      setError(null);
+      setTimetable(initialTimetable);
+      return;
+    }
     setError(null);
     setTimetable(null);
     getTimetable(account.id, formatDate(monday), formatDate(sunday))
@@ -54,23 +59,8 @@ export default function TimetableView({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account.id, weekOffset]);
 
-  async function handleDelete() {
-    try {
-      await deleteAccount(account.id);
-      onDeleted(account.id);
-    } catch (err) {
-      window.alert(err instanceof Error ? err.message : "Nie udało się usunąć konta");
-    }
-  }
-
   return (
     <section className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-lg font-heading font-medium">{account.label}</h2>
-        <Button variant="ghost" size="sm" onClick={handleDelete}>
-          Usuń to konto
-        </Button>
-      </div>
       <div className="flex items-center gap-3">
         <Button variant="outline" size="sm" onClick={() => setWeekOffset((w) => w - 1)}>
           ← Poprzedni tydzień

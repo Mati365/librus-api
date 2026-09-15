@@ -26,6 +26,10 @@ export default function App() {
     setView("calendar");
   }
 
+  function handleDeleted(id: number) {
+    setAccounts((prev) => prev.filter((a) => a.id !== id));
+  }
+
   if (loading) return <p className="text-sm text-muted-foreground">Ładowanie…</p>;
 
   return (
@@ -51,7 +55,7 @@ export default function App() {
         ) : (
           <BentoGrid className="grid-cols-1 auto-rows-auto md:grid-cols-2 xl:grid-cols-3">
             {accounts.map((account) => (
-              <TodayCard key={account.id} account={account} />
+              <TodayCard key={account.id} account={account} onDeleted={handleDeleted} />
             ))}
           </BentoGrid>
         ))}
