@@ -3,6 +3,7 @@ import { Account, getTimetable, Timetable } from "../api";
 import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
 import { Alert, AlertDescription } from "./ui/alert";
 import TimetableDialog from "./TimetableDialog";
+import { mondayOf, formatDate } from "../lib/week";
 
 const DAY_KEYS = [
   "Sunday",
@@ -22,11 +23,16 @@ const DAY_LABELS: Record<string, string> = {
   Friday: "Piątek",
 };
 
-// Saturday and Sunday are never school days, so the weekend shows the coming Monday instead.
-export function schoolDayFor(now: Date): { key: string; isToday: boolean } {
+// Saturday and Sunday are never school days, so the weekend points at the COMING Monday
+// (+2 from Saturday, +1 from Sunday) — not the Monday of the week that is ending.
+export function schoolDayFor(now: Date): { key: string; isToday: boolean; date: Date } {
   const day = now.getDay();
-  if (day === 0 || day === 6) return { key: "Monday", isToday: false };
-  return { key: DAY_KEYS[day], isToday: true };
+  if (day === 6 || day === 0) {
+    const date = new Date(now);
+    date.setDate(date.getDate() + (day === 6 ? 2 : 1));
+    return { key: "Monday", isToday: false, date };
+  }
+  return { key: DAY_KEYS[day], isToday: true, date: new Date(now) };
 }
 
 export default function TodayCard({
@@ -40,16 +46,22 @@ export default function TodayCard({
   const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
 
+  const { key, isToday, date } = schoolDayFor(new Date());
+  const monday = mondayOf(date);
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+  const from = formatDate(monday);
+  const to = formatDate(sunday);
+
   useEffect(() => {
     setError(null);
-    getTimetable(account.id)
+    getTimetable(account.id, from, to)
       .then(setTimetable)
       .catch((err) =>
         setError(err instanceof Error ? err.message : "Nie udało się pobrać planu")
       );
-  }, [account.id]);
+  }, [account.id, from, to]);
 
-  const { key, isToday } = schoolDayFor(new Date());
   const lessons = timetable
     ? timetable.hours
         .map((hour, index) => ({ hour, lesson: timetable.table[key]?.[index] ?? null }))

@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import { Alert, AlertDescription } from "./ui/alert";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "./ui/table";
 import { Card, CardContent } from "./ui/card";
+import { mondayOf, formatDate } from "../lib/week";
 
 // Saturday and Sunday are always school-free days in Librus timetables, so they're
 // omitted from the grid entirely rather than shown as permanently empty columns.
@@ -15,19 +16,6 @@ const DAY_LABELS: Record<string, string> = {
   Thursday: "Czwartek",
   Friday: "Piątek",
 };
-
-function mondayOf(date: Date): Date {
-  const result = new Date(date);
-  const daysSinceMonday = (result.getDay() + 6) % 7;
-  result.setDate(result.getDate() - daysSinceMonday);
-  return result;
-}
-
-function formatDate(date: Date): string {
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(
-    date.getDate()
-  ).padStart(2, "0")}`;
-}
 
 export default function TimetableView({
   account,

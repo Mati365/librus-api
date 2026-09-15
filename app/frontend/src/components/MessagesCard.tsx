@@ -48,6 +48,7 @@ export default function MessagesCard({ account }: { account: Account }) {
         ))}
         {selected && (
           <MessageDialog
+            key={selected.id}
             accountId={account.id}
             message={selected}
             open={selected !== null}

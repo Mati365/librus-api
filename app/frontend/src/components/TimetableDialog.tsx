@@ -34,7 +34,7 @@ export default function TimetableDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-5xl">
+      <DialogContent className="sm:max-w-5xl max-h-[85dvh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{account.label}</DialogTitle>
           <DialogDescription>Plan lekcji na cały tydzień</DialogDescription>

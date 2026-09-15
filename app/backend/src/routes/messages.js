@@ -19,7 +19,7 @@ function createMessagesRouter({ sessionManager }) {
       res.json(messages);
     } catch (error) {
       // Log only error.message — the raw error can carry the plaintext Librus password in error.config.data
-      console.error("librus inbox fetch failed for account %s: %s", req.params.id, error.message);
+      console.error("librus inbox fetch failed for account %s: %s", accountId, error.message);
       res.status(502).json({ error: "Failed to fetch messages from Librus" });
     }
   });
@@ -54,7 +54,7 @@ function createMessagesRouter({ sessionManager }) {
       });
     } catch (error) {
       // Log only error.message — the raw error can carry the plaintext Librus password in error.config.data
-      console.error("librus message fetch failed for account %s: %s", req.params.id, error.message);
+      console.error("librus message fetch failed for account %s: %s", accountId, error.message);
       res.status(502).json({ error: "Failed to fetch message from Librus" });
     }
   });

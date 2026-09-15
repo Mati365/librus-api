@@ -36,7 +36,7 @@ export default function MessageDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-2xl">
+      <DialogContent className="sm:max-w-2xl max-h-[85dvh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{message.title}</DialogTitle>
           <DialogDescription>
