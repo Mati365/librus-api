@@ -5,6 +5,7 @@ const { createDb, makeAccountsStore } = require("./db.js");
 const { createSessionManager } = require("./librusSessions.js");
 const { createAccountsRouter } = require("./routes/accounts.js");
 const { createTimetableRouter } = require("./routes/timetable.js");
+const { createMessagesRouter } = require("./routes/messages.js");
 
 process.on("unhandledRejection", (err) => {
   console.error("Unhandled rejection:", err);
@@ -35,6 +36,8 @@ function createApp({
   );
 
   app.use("/api/accounts", createTimetableRouter({ sessionManager }));
+
+  app.use("/api/accounts", createMessagesRouter({ sessionManager }));
 
   // eslint-disable-next-line no-unused-vars
   app.use((err, req, res, next) => {
