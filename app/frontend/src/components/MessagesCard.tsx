@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { Account, listMessages, Message } from "../api";
 import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
 import { Alert, AlertDescription } from "./ui/alert";
+import MessageDialog from "./MessageDialog";
 
 export default function MessagesCard({ account }: { account: Account }) {
   const [messages, setMessages] = useState<Message[] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [selected, setSelected] = useState<Message | null>(null);
 
   useEffect(() => {
     setError(null);
@@ -32,13 +34,26 @@ export default function MessagesCard({ account }: { account: Account }) {
           <p className="text-sm text-muted-foreground">Brak wiadomości.</p>
         )}
         {messages?.map((message) => (
-          <div key={message.id} className="flex flex-col text-sm">
+          <button
+            key={message.id}
+            type="button"
+            onClick={() => setSelected(message)}
+            className="flex flex-col rounded-md p-1 text-left text-sm transition-colors hover:bg-muted/50"
+          >
             <span className={message.read ? "" : "font-medium"}>{message.title}</span>
             <span className="text-muted-foreground">
               {message.user} · {message.date}
             </span>
-          </div>
+          </button>
         ))}
+        {selected && (
+          <MessageDialog
+            accountId={account.id}
+            message={selected}
+            open={selected !== null}
+            onOpenChange={(next) => !next && setSelected(null)}
+          />
+        )}
       </CardContent>
     </Card>
   );
