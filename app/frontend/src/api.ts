@@ -52,3 +52,27 @@ export function getTimetable(id: number, from?: string, to?: string): Promise<Ti
     asJson<Timetable>(res)
   );
 }
+
+export interface Message {
+  id: number;
+  user: string;
+  title: string;
+  date: string;
+  read: boolean;
+}
+
+export interface MessageDetail {
+  id: number;
+  title: string;
+  user: string;
+  date: string;
+  content: string;
+}
+
+export function listMessages(id: number): Promise<Message[]> {
+  return fetch(`${BASE}/${id}/messages`).then((res) => asJson<Message[]>(res));
+}
+
+export function getMessage(id: number, messageId: number): Promise<MessageDetail> {
+  return fetch(`${BASE}/${id}/messages/${messageId}`).then((res) => asJson<MessageDetail>(res));
+}

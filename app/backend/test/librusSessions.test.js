@@ -89,6 +89,30 @@ test("withSession re-logs in and retries once when fn throws on a cached client"
   assert.equal(authorizeCalls, 2);
 });
 
+test("withSession shares one in-flight login across concurrent calls for the same account", async () => {
+  let authorizeCalls = 0;
+  const client = {
+    authorize: async () => {
+      authorizeCalls += 1;
+      await new Promise((resolve) => setTimeout(resolve, 10));
+    },
+  };
+  const manager = createSessionManager({
+    accountsStore: stubAccountsStore({ id: 1, login: "u", password_encrypted: Buffer.from("x") }),
+    decryptPassword: () => "plain-pass",
+    librusFactory: () => client,
+  });
+
+  const [first, second] = await Promise.all([
+    manager.withSession(1, async (c) => { assert.equal(c, client); return "first"; }),
+    manager.withSession(1, async (c) => { assert.equal(c, client); return "second"; }),
+  ]);
+
+  assert.equal(first, "first");
+  assert.equal(second, "second");
+  assert.equal(authorizeCalls, 1);
+});
+
 test("forget drops the cached client so the next call re-logs in", async () => {
   let authorizeCalls = 0;
   const client = { authorize: async () => { authorizeCalls += 1; } };
