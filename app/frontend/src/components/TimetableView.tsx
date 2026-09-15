@@ -60,7 +60,7 @@ export default function TimetableView({
   }, [account.id, weekOffset]);
 
   return (
-    <section className="flex flex-col gap-4">
+    <section className="flex min-w-0 flex-col gap-4">
       <div className="flex items-center gap-3">
         <Button variant="outline" size="sm" onClick={() => setWeekOffset((w) => w - 1)}>
           ← Poprzedni tydzień
@@ -81,7 +81,7 @@ export default function TimetableView({
       {!error && !timetable && <p className="text-sm text-muted-foreground">Ładowanie…</p>}
 
       {timetable && (
-        <Card>
+        <Card className="min-w-0">
           <CardContent>
             <Table>
               <TableHeader>
