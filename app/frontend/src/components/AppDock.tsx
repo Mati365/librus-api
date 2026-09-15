@@ -29,23 +29,29 @@ export default function AppDock({
       <TooltipProvider>
         <Dock>
           {ITEMS.map(({ view: itemView, label, Icon }) => (
-            <DockIcon key={itemView}>
+            <DockIcon
+              key={itemView}
+              role="button"
+              tabIndex={0}
+              aria-label={label}
+              aria-current={view === itemView}
+              onClick={() => onChange(itemView)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  onChange(itemView);
+                }
+              }}
+              className={cn(
+                "transition-colors",
+                view === itemView
+                  ? "bg-accent text-accent-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <button
-                    type="button"
-                    aria-label={label}
-                    aria-current={view === itemView}
-                    onClick={() => onChange(itemView)}
-                    className={cn(
-                      "flex size-full items-center justify-center rounded-full transition-colors",
-                      view === itemView
-                        ? "bg-accent text-accent-foreground"
-                        : "text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    <Icon className="size-5" />
-                  </button>
+                  <Icon className="size-5" />
                 </TooltipTrigger>
                 <TooltipContent>{label}</TooltipContent>
               </Tooltip>
