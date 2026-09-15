@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Account, listAccounts } from "./api";
 import AddAccountForm from "./components/AddAccountForm";
 import AppDock, { View } from "./components/AppDock";
+import MessagesCard from "./components/MessagesCard";
 import TodayCard from "./components/TodayCard";
 import { Alert, AlertDescription } from "./components/ui/alert";
 import { BentoGrid } from "./components/ui/bento-grid";
@@ -56,6 +57,19 @@ export default function App() {
           <BentoGrid className="grid-cols-1 auto-rows-auto md:grid-cols-2 xl:grid-cols-3">
             {accounts.map((account) => (
               <TodayCard key={account.id} account={account} onDeleted={handleDeleted} />
+            ))}
+          </BentoGrid>
+        ))}
+
+      {view === "messages" &&
+        (accounts.length === 0 ? (
+          <p className="text-sm text-muted-foreground">
+            Dodaj pierwsze konto Librus, żeby zobaczyć wiadomości.
+          </p>
+        ) : (
+          <BentoGrid className="grid-cols-1 auto-rows-auto md:grid-cols-2 xl:grid-cols-3">
+            {accounts.map((account) => (
+              <MessagesCard key={account.id} account={account} />
             ))}
           </BentoGrid>
         ))}
