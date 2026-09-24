@@ -88,6 +88,10 @@ client.authorize("login", "pass").then(function () {
   client.absence.getAbsence(5068489).then((data) => {});
 
   // Get timetable
+  // Each lesson: { subject, teacher, room, time, cancelled, flag, original }
+  // cancelled - lesson is struck through (e.g. flag "odwołane")
+  // flag      - Librus info label, e.g. "odwołane", "zastępstwo" (or null)
+  // original  - struck-through lesson replaced by this one (or null)
   client.calendar.getTimetable().then((data) => {});
 
   // Get calendar
